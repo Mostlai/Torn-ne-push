@@ -16,7 +16,7 @@ jobs:
       with:
         python-version: 3.7
 
-    - name: Update paper list
+    - name: Run Python
       env:
         QMSG_KEY: ${{ secrets.QMSG_KEY }}
         TORN_KEY: ${{ secrets.TORN_KEY }}
