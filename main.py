@@ -61,7 +61,7 @@ def main_handler():
             achive_max_time=str(math.floor(achive_max_time/60))+'小时'
         else:
             achive_max_time=str(math.floor(achive_max_time))+'分钟'
-        more_info += '勇气预计还有{}补满\n'.format(str(achive_max_time)+'分钟')
+        more_info += '勇气预计还有{}补满\n'.format(str(achive_max_time))
 
     message = '{}\n{}\n能量: {}\n勇气: {}\n生命: {}\n{}\n{}\n{}\n{}'.format(
         name, status, energy, nerve, life, drug, booster, medical, more_info
