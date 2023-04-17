@@ -38,4 +38,5 @@ jobs:
       env:
         QMSG_KEY: ${{ secrets.QMSG_KEY }}
         TORN_KEY: ${{ secrets.TORN_KEY }}
-      run: main.py
+      run: |
+        python3 ./main.py
