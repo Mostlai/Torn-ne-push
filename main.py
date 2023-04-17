@@ -33,33 +33,37 @@ def main_handler():
 
     drug = '药物CD好了'
     if bars['cooldowns']['drug']!=0:
-        drug = '药物CD:{}'.format(analyse_second(bars['cooldowns']['drug']))
+        drug = '药物CD: {}'.format(analyse_second(bars['cooldowns']['drug']))
 
     booster = '助推器CD好了'
     if bars['cooldowns']['booster'] != 0:
-        booster = '助推器CD:{}'.format(analyse_second(bars['cooldowns']['booster']))
+        booster = '饮料CD: {}'.format(analyse_second(bars['cooldowns']['booster']))
 
     medical = '医药CD好了'
     if bars['cooldowns']['medical'] != 0:
-        medical = '医药CD:{}'.format(analyse_second(bars['cooldowns']['medical']))
+        medical = '医药CD: {}'.format(analyse_second(bars['cooldowns']['medical']))
 
-    if bars['energy']['current']>=bars['energy']['maximum']:
+    if bars['energy']['current'] >= bars['energy']['maximum']:
         more_info += '能量满了哦'
     else:
         achive_max_time = int(bars['energy']['maximum']) - int(bars['energy']['current'])/5
         if achive_max_time>60:
             achive_max_time=str(math.floor(achive_max_time/60))+'小时'
-        more_info += '能量预计还有{}补满\n'.format(str(achive_max_time)+'分钟')
+        else:
+            achive_max_time=str(math.floor(achive_max_time))+'分钟'
+        more_info += '能量预计还有{}补满\n'.format(str(achive_max_time))
 
-    if bars['nerve']['current']>=bars['nerve']['maximum']:
+    if bars['nerve']['current'] >= bars['nerve']['maximum']:
         more_info += '勇气满了哦'
     else:
         achive_max_time = int(bars['nerve']['maximum']) - int(bars['nerve']['current'])/10
         if achive_max_time>60:
             achive_max_time=str(math.floor(achive_max_time/60))+'小时'
+        else:
+            achive_max_time=str(math.floor(achive_max_time))+'分钟'
         more_info += '勇气预计还有{}补满\n'.format(str(achive_max_time)+'分钟')
 
-    message = '{}\n{}\n能量:{}\n勇气:{}\n生命:{}\n{}\n{}\n{}\n{}'.format(
+    message = '{}\n{}\n能量: {}\n勇气: {}\n生命: {}\n{}\n{}\n{}\n{}'.format(
         name, status, energy, nerve, life, drug, booster, medical, more_info
     )
 
