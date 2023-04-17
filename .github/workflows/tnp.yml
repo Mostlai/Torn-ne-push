@@ -5,10 +5,13 @@ name: Python application
 
 on:
   schedule:
-    - cron: '10 7,12,15,19,22 * * *'
+    - cron: '11 7,12,15,19,22 * * *'
 
 permissions:
   contents: read
+
+env:
+  TZ: Asia/Shanghai
 
 jobs:
   build:
@@ -16,10 +19,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: szenius/set-timezone@v1.0 # 设置执行环境的时区
-        with:
-          timezoneLinux: "Asia/Shanghai"
+    - uses: actions/checkout@v3
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:
