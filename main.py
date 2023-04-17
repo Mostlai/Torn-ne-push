@@ -3,8 +3,8 @@ import os
 
 import requests
 import datetime
-QMSG_KEY = os.environ[QMSG_KEY]
-TORN_KEY = os.environ[TORN_KEY]
+QMSG_KEY = os.environ["QMSG_KEY"]
+TORN_KEY = os.environ["TORN_KEY"]
 TORN_ID = '2783662'
 webhook = 'https://qmsg.zendee.cn:443/send/' + QMSG_KEY  # Qmsg酱接口
 api_url = 'https://api.torn.com/user/' + TORN_ID + '?selections=&key=' + TORN_KEY
