@@ -1,0 +1,23 @@
+name: TNP ACTION
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: checkout actions
+    - uses: actions/checkout@v1
+
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+
+    - name: Update paper list
+      env:
+        QMSG_KEY: ${{ secrets.QMSG_KEY }}
+        TORN_KEY: ${{ secrets.TORN_KEY }}
+      run: python main.py
