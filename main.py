@@ -22,7 +22,6 @@ def main_handler():
     data = requests.get(api_url).json()
     bars = requests.get(bars_url).json()
     name = data['name'] + '[{}]'.format(data['player_id'])
-    time_now = ('现在是{}月{}日{}点{}分{}秒'.format(i.month, i.day, i.hour, i.minute, i.second))
     status = '你还在城里面潇洒着'
     more_info =''
 
@@ -60,8 +59,8 @@ def main_handler():
             achive_max_time=str(math.floor(achive_max_time/60))+'小时'
         more_info += '勇气预计还有{}补满\n'.format(str(achive_max_time)+'分钟')
 
-    message = '{}\n{}\n{}\n能量:{}\n勇气:{}\n生命:{}\n{}\n{}\n{}\n{}'.format(
-        name, time_now, status, energy, nerve, life, drug, booster, medical, more_info
+    message = '{}\n{}\n能量:{}\n勇气:{}\n生命:{}\n{}\n{}\n{}\n{}'.format(
+        name, status, energy, nerve, life, drug, booster, medical, more_info
     )
 
     QQPusher(message)
@@ -73,6 +72,7 @@ def QQPusher(data):
         'msg': data
     }
     requests.post(webhook, massage)
+    print("发送完成")
 
 
 main_handler()
