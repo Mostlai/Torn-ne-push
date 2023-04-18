@@ -4,8 +4,8 @@ import requests
 import user_setting
 import re
 
-QMSG_KEY = "5gGoV67gxeOZxCnt"
-TORN_KEY = "5gGoV67gxeOZxCnt"
+QMSG_KEY = os.environ["QMSG_KEY"]
+TORN_KEY = os.environ["TORN_KEY"]
 TORN_ID = user_setting.user_id
 webhook = 'https://qmsg.zendee.cn:443/send/' + QMSG_KEY
 api_url = 'https://api.torn.com/user/' + TORN_ID + '?selections=&key=' + TORN_KEY
