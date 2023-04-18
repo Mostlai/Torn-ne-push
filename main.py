@@ -2,6 +2,7 @@ import math
 import os
 import requests
 import user_setting
+import re
 
 QMSG_KEY = os.environ["QMSG_KEY"]
 TORN_KEY = os.environ["TORN_KEY"]
@@ -17,11 +18,18 @@ def analyse_second(second):
     return "%02d:%02d:%02d" % (h, m, s)
 
 
+def del_url_inevent(str):
+    string = re.sub("\<.*?\>", "()", str)
+    string = string.replace('(', '')
+    string = string.replace(')', '')
+    return string
+
+
 def events_reader(events_list):
     event_str = '未读Events:\n'
     index = 1
     for i in events_list:
-        event_str = event_str + str(index) + '. ' + events_list[i]['event'] + '\n'
+        event_str = event_str + str(index) + '. ' + del_url_inevent(events_list[i]['event']) + '\n'
         index += 1
     return event_str
 
