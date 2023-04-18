@@ -4,12 +4,12 @@ import requests
 import user_setting
 import re
 
-QMSG_KEY = os.environ["QMSG_KEY"]
-TORN_KEY = os.environ["TORN_KEY"]
+QMSG_KEY = "5gGoV67gxeOZxCnt"
+TORN_KEY = "5gGoV67gxeOZxCnt"
 TORN_ID = user_setting.user_id
 webhook = 'https://qmsg.zendee.cn:443/send/' + QMSG_KEY
 api_url = 'https://api.torn.com/user/' + TORN_ID + '?selections=&key=' + TORN_KEY
-misc_url = 'https://api.torn.com/user/' + TORN_ID + '?selections=cooldowns,bars,newevents,newmessages,refills&key=' + TORN_KEY
+misc_url = 'https://api.torn.com/user/' + TORN_ID + '?selections=cooldowns,bars,newevents,newmessages,refills,inventory&key=' + TORN_KEY
 
 
 def analyse_second(second):
@@ -32,6 +32,17 @@ def events_reader(events_list):
         event_str = event_str + str(index) + '. ' + del_url_inevent(events_list[i]['event']) + '\n'
         index += 1
     return event_str
+
+
+def inventory_reader(inv):
+    inv_info = ""
+    for i in inv:
+        #xan检测
+        if i.get('ID', '') != '':
+            for x in user_setting.inventory_list:
+                if i["name"] == x:
+                    inv_info += "{}存量:".format(x) + str(i["quantity"]) + ' 市场价:' + str(i["market_price"]) + '\n'
+    return inv_info
 
 
 def main_handler():
@@ -57,6 +68,11 @@ def main_handler():
         event = events_reader(misc['events'])
     else:
         event = ''
+
+    if user_setting.inventory_push:
+        inventory = inventory_reader(misc['inventory'])
+    else:
+        inventory = ''
 
     life = '{}/{}'.format(misc['life']['current'], misc['life']['maximum'])
     energy = '{}/{}'.format(misc['energy']['current'], misc['energy']['maximum'])
@@ -115,14 +131,15 @@ def main_handler():
     else:
         energy_refill = nerve_refill = token_refill = ''
 
-    message = '{}\n{}\n能量: {}\n勇气: {}\n生命: {}\n{}\n{}\n{}\n{}\n{}{}{}{}'.format(
+    message = '{}\n{}\n能量: {}\n勇气: {}\n生命: {}\n{}\n{}\n{}\n{}\n{}{}{}{}{}'.format(
         name, status, energy, nerve, life, drug, booster, medical, more_info, energy_refill, nerve_refill, token_refill,
-        event
+        inventory, event
     )
     QQPusher(message)
 
 
 def QQPusher(data):
+    print(data)
     data = data.encode('UTF-8')
     massage = {
         'msg': data
