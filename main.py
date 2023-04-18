@@ -40,20 +40,23 @@ def main_handler():
     data = requests.get(api_url).json()
     misc = requests.get(misc_url).json()
     name = data['name'] + '[{}]'.format(data['player_id'])
-    status = '你还在城里面潇洒着'
+    status = user_setting.in_ctiy_ok
     more_info = '------\n'
 
     if data["donator"] != 0:
         energy_regen = 0.5
 
     if data["status"]["state"] == 'Hospital':
-        status = '你看起来在医院潇洒 ' + data["status"]["description"]
+        status = user_setting.in_hosp + data["status"]["description"]
     if data["status"]["state"] == 'Jail':
-        status = '你看起来在监狱潇洒 ' + data["status"]["description"]
+        status = user_setting.in_jail + data["status"]["description"]
     if data["status"]["state"] == 'Traveling':
-        status = '你看起来在飞机潇洒 ' + data["status"]["description"]
+        status = user_setting.in_travel + data["status"]["description"]
 
-    event = events_reader(misc['events'])
+    if user_setting.event_push:
+        event = events_reader(misc['events'])
+    else:
+        event = ''
 
     life = '{}/{}'.format(misc['life']['current'], misc['life']['maximum'])
     energy = '{}/{}'.format(misc['energy']['current'], misc['energy']['maximum'])
@@ -93,23 +96,26 @@ def main_handler():
             achive_max_time = str(math.floor(achive_max_time)) + '分钟'
         more_info += '勇气预计还有{}补满'.format(str(achive_max_time))
 
-    energy_refill = 'E Refill: '
-    if not misc['refills']['energy_refill_used']:
-        energy_refill += '未使用'
+    if user_setting.refill_push:
+        energy_refill = 'E Refill: '
+        if not misc['refills']['energy_refill_used']:
+            energy_refill += '未使用\n'
+        else:
+            energy_refill += '已使用\n'
+        nerve_refill = 'N Refill: '
+        if not misc['refills']['nerve_refill_used']:
+            nerve_refill += '未使用\n'
+        else:
+            nerve_refill += '已使用\n'
+        token_refill = 'T Refill: '
+        if not misc['refills']['token_refill_used']:
+            token_refill += '未使用\n'
+        else:
+            token_refill += '已使用\n'
     else:
-        energy_refill += '已使用'
-    nerve_refill = 'N Refill: '
-    if not misc['refills']['nerve_refill_used']:
-        nerve_refill += '未使用'
-    else:
-        nerve_refill += '已使用'
-    token_refill = 'T Refill: '
-    if not misc['refills']['token_refill_used']:
-        token_refill += '未使用'
-    else:
-        token_refill += '已使用'
+        energy_refill = nerve_refill = token_refill = ''
 
-    message = '{}\n{}\n能量: {}\n勇气: {}\n生命: {}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}'.format(
+    message = '{}\n{}\n能量: {}\n勇气: {}\n生命: {}\n{}\n{}\n{}\n{}\n{}{}{}{}'.format(
         name, status, energy, nerve, life, drug, booster, medical, more_info, energy_refill, nerve_refill, token_refill,
         event
     )
