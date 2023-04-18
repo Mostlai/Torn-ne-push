@@ -26,7 +26,7 @@ def del_url_inevent(str):
 
 
 def events_reader(events_list):
-    event_str = '未读Events:\n'
+    event_str = '未读事件:\n'
     index = 1
     for i in events_list:
         event_str = event_str + str(index) + '. ' + del_url_inevent(events_list[i]['event']) + '\n'
