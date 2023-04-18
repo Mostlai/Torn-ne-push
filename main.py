@@ -109,13 +109,12 @@ def main_handler():
 
 
 def QQPusher(data):
-    print(data)
     data = data.encode('UTF-8')
     massage = {
         'msg': data
     }
-    # requests.post(webhook, massage)
-    # print("发送完成")
+    requests.post(webhook, massage)
+    print("发送完成")
 
 
 main_handler()
