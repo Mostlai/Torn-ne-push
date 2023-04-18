@@ -27,7 +27,7 @@ def events_reader(events_list):
     return event_str
 
 
-def main_handler():
+def main_handler(energy_regen, nerve_regen):
     i = datetime.datetime.now()
     data = requests.get(api_url).json()
     misc = requests.get(misc_url).json()
@@ -115,4 +115,4 @@ def QQPusher(data):
     print("发送完成")
 
 
-main_handler()
+main_handler(energy_regen, nerve_regen)
