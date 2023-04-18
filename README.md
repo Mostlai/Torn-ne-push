@@ -68,4 +68,8 @@ inventory_list = ['Xanax']   #背包检测物品名称，例如inventory_list = 
 
 ## 最后
 
-记得看一下你仓库的action页面，里面的workflow有没有打开
+建议改一下.github/workflows/tnp.yml文件，比如cron: '20 * * * *'改成cron: '21 * * * *'，然后记得看一下你仓库的action页面，里面的workflow有没有打开
+
+![](./img/2.png)
+
+比如这种情况，你需要手动把这个工作流打开，之后他就会自动运行了
