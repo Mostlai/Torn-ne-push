@@ -66,3 +66,6 @@ inventory_push = True  #是否打开背包物品数量检测，默认打开 True
 inventory_list = ['Xanax']   #背包检测物品名称，例如inventory_list = ['Xanax','HEG']
 ```
 
+## 最后
+
+记得看一下你仓库的action页面，里面的workflow有没有打开
