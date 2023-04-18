@@ -5,6 +5,15 @@
 
 基于[Git action](https://github.com/Mostlai/Torn-ne-push/actions)和[Qmsg](https://qmsg.zendee.cn/)搭建的Torn报信仓库
 
+## 有何功能
+
+1. 基本信息提示
+2. 爆NE预测
+3. Refiil提示
+4. 未读Event提示
+5. 背包物品检测
+6. 可能还有别的
+
 ## 使用效果
 
 ![](./img/1.png)
